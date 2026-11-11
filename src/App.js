@@ -4,6 +4,7 @@ import './app.css'
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -76,6 +77,14 @@ function App() {
       })
   }
 
+  async function excluirPost(id) {
+    const docRef = doc(db, 'posts', id)
+
+    await deleteDoc(docRef).then(() => {
+      alert('Post deletado com sucesso')
+    })
+  }
+
   return (
     <div className="App">
       <h1>React + Firebase</h1>
@@ -109,7 +118,11 @@ function App() {
               <li key={post.id}>
                 <strong>Id: {post.id}</strong> <br />
                 <span>Titulo: {post.titulo}</span> <br />
-                <span>Autor: {post.autor}</span> <br /> <br />
+                <span>Autor: {post.autor}</span> <br />
+                <button onClick={() => excluirPost(post.id)}>
+                  Excluir
+                </button>{' '}
+                <br /> <br />
               </li>
             )
           })}
